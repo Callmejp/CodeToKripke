@@ -1,0 +1,19 @@
+a = 1;
+b = a;
+
+if a <= b then
+    c = a + b;
+else
+    d = c - b;
+endif
+
+
+while true do
+    e = c * d;
+    f = 0;
+endwhile
+
+if not f then
+    g = f + e;
+else
+    h = g * 2;
