@@ -17,7 +17,7 @@ Here `a`, `b` and `c` indicates the variables, expressions and sentences.
 ### Result
 
 ```
-//Input: imp.txt
+//Input: testCode/imp.txt
 ```
 
 ```
@@ -31,10 +31,14 @@ else
 L5: d = c - b
 endif
 L6: while (true) do
+L7: e = c * d
 L8: f = 0
+endwhile
+L9: if (notf) then
 L10: g = f + e
 else
 L11: h = g * 2
+endif
 *********************Label Formula***************************
 pc = L1 ^ pc' = L2 ^ a' = 1
 pc = L2 ^ pc' = L3 ^ b' = a
@@ -44,6 +48,8 @@ pc = L4 ^ pc' = L6 ^ c' = a + b
 pc = L5 ^ pc' = L6 ^ d' = c - b
 pc = L6 ^ pc' = L7 ^ (true)
 pc = L6 ^ pc' = L9 ^ ¬(true)
+pc = L7 ^ pc' = L8 ^ e' = c * d
+pc = L8 ^ pc' = L6 ^ f' = 0
 pc = L9 ^ pc' = L10 ^ (notf)
 pc = L9 ^ pc' = L11 ^ ¬(notf)
 pc = L10 ^ pc' = L12 ^ g' = f + e
