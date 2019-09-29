@@ -1,0 +1,16 @@
+cobegin P0 || P1 coend
+
+P0:
+while true do
+    wait(c == 0);
+    c = 1;
+endwhile
+
+P1:
+while true do
+    wait(c == 1);
+    a = 1;
+    b = 1;
+    c = 0;
+endwhile
+

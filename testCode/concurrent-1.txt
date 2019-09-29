@@ -2,25 +2,25 @@ cobegin P0 || P1 coend
 
 P0:
 while true do
-    wait(turn = 0);
+    wait(d = 0);
     if a > 1 then
         skip;
     else
         a = a + 2;
         b = a * 2;
     endif
-    turn = 1;
+    d = 1;
 endwhile
 
 P1:
 while true do
-    wait(turn = 1);
+    wait(d = 1);
     a = 1;
     b = 1;
     if b > 0 then
         a = a + 1;
         b = b - 1;
     endif
-    turn = 0;
+    d = 0;
 endwhile
 

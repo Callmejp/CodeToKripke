@@ -3,6 +3,7 @@ b = a;
 
 if a <= b then
     c = a + b;
+    skip;
 else
     d = c - b;
 endif
@@ -11,6 +12,7 @@ endif
 while true do
     e = c * d;
     f = 0;
+    wait(f == 0);
 endwhile
 
 if not f then
