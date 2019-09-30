@@ -161,7 +161,7 @@ def handleInitialState(char):
 # ----------------------------------------------
 # The entrance function
 # ----------------------------------------------
-def translateToKripke(codeContent, upToNowCount):
+def translateToKripke(codeContent, upToNowCount, flag=0):
     global currentState
     newCodeContent = codeContent + "^"
     # print(newCodeContent)
@@ -588,9 +588,12 @@ def translateToKripke(codeContent, upToNowCount):
 
     #print(wordList)
     #print(contentList)
-    upToNowCount = mergeToDict(upToNowCount)
+    if flag == 1:
+        return wordList, contentList
 
-    return upToNowCount
+    labelProgram, upToNowCount = mergeToDict(upToNowCount)
+
+    return labelProgram, upToNowCount
 
 
 
@@ -664,7 +667,7 @@ def mergeToDict(upToNowCount):
                     segment[backLabel] = labelStr + str(labelCount + ifSegment[elseToEndCount] + 1)
                     inIf = False
                     countIfToElse = 0
-            elif inWhile:
+            if inWhile:
                 countWhileToEnd += 1
                 if countWhileToEnd == whileSegment[whileToEndCount]:
                     segment[backLabel] = labelStr + str(whileSegment["startCount"])
@@ -672,6 +675,9 @@ def mergeToDict(upToNowCount):
                     countWhileToEnd = 0
         # if & else part
         elif wordList[index] == TypeToken.If:
+            # if occurs in the while part
+            if inWhile:
+                countWhileToEnd += 1
             getIfPosition(index)
             segment[frontLabel] = labelStr + str(labelCount)
             segment[ifTrueLabel] = labelStr + str(labelCount + 1)
@@ -709,7 +715,7 @@ def mergeToDict(upToNowCount):
     
     
     outputKripkeStructure(labelProgram)
-    return labelCount
+    return labelProgram, labelCount
     
 
 

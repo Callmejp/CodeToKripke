@@ -80,7 +80,7 @@ Here `a`, `b` and `c` indicates the variables, expressions and sentences.
 //Output:
 *********************Label Program***************************
 L1: while (true) do
-L2: wait (d=0)
+L2: wait (d==0)
 L3: if (a>1) then
 L4: skip
 else
@@ -92,37 +92,57 @@ endwhile
 *********************Label Formula***************************
 pc = L1 ^ pc' = L2 ^ (true)
 pc = L1 ^ pc' = L8 ^ ¬(true)
-pc = L2 ^ pc' = L3 ^ (d=0)
-pc = L2 ^ pc' = L2 ^ ¬(d=0)
+pc = L2 ^ pc' = L3 ^ (d==0)
+pc = L2 ^ pc' = L2 ^ ¬(d==0)
 pc = L3 ^ pc' = L4 ^ (a>1)
 pc = L3 ^ pc' = L5 ^ ¬(a>1)
 pc = L4 ^ pc' = L7 ^ Same(U)
 pc = L5 ^ pc' = L6 ^ a' = a + 2
 pc = L6 ^ pc' = L7 ^ b' = a * 2
-pc = L7 ^ pc' = L8 ^ d' = 1
+pc = L7 ^ pc' = L1 ^ d' = 1
 *********************Label Program***************************
-L8: while (true) do
-L9: wait (d=1)
-L10: a = 1
-L11: b = 1
-L12: if (b>0) then
-L13: a = a + 1
-L14: b = b - 1
+L9: while (true) do
+L10: wait (d==1)
+L11: a = 1
+L12: b = 1
+L13: if (b>0) then
+L14: a = a + 1
+L15: b = b - 1
 endif
-L15: d = 0
+L16: d = 0
 endwhile
 *********************Label Formula***************************
-pc = L8 ^ pc' = L9 ^ (true)
-pc = L8 ^ pc' = L16 ^ ¬(true)
-pc = L9 ^ pc' = L10 ^ (d=1)
-pc = L9 ^ pc' = L9 ^ ¬(d=1)
-pc = L10 ^ pc' = L11 ^ a' = 1
-pc = L11 ^ pc' = L12 ^ b' = 1
-pc = L12 ^ pc' = L13 ^ (b>0)
-pc = L12 ^ pc' = L16 ^ ¬(b>0)
-pc = L13 ^ pc' = L14 ^ a' = a + 1
-pc = L14 ^ pc' = L15 ^ b' = b - 1
-pc = L15 ^ pc' = L16 ^ d' = 0
+pc = L9 ^ pc' = L10 ^ (true)
+pc = L9 ^ pc' = L17 ^ ¬(true)
+pc = L10 ^ pc' = L11 ^ (d==1)
+pc = L10 ^ pc' = L10 ^ ¬(d==1)
+pc = L11 ^ pc' = L12 ^ a' = 1
+pc = L12 ^ pc' = L13 ^ b' = 1
+pc = L13 ^ pc' = L14 ^ (b>0)
+pc = L13 ^ pc' = L17 ^ ¬(b>0)
+pc = L14 ^ pc' = L15 ^ a' = a + 1
+pc = L15 ^ pc' = L16 ^ b' = b - 1
+pc = L16 ^ pc' = L9 ^ d' = 0
 ```
 
+## version 3.0.0
+Finally, we successfully added the drawing graph function. And we use the [Graphviz](http://www.graphviz.org/)
+
+### How to use Graphviz in Python ?
+
+```
+//Windows for example:
+1. Download MSI [here](https://graphviz.gitlab.io/_pages/Download/Download_windows.html) and install it.
+2. Add its `bin` path to your PC's `Environment Path`.
+3. pip install graphviz. 
+```
+
+### Result
+
+1. Teacher' Example(testCode/teacher.txt)
+   
+   ![img](Images/Teacher.png)
+2. Intricate Example(testCode/concurrent-1.txt): only show the 20 nodes(not fully).
+   
+   ![img](Images/Intricate.png)
 ## Thanks the course in the [极客时间](https://time.geekbang.org/column/intro/100034101)
