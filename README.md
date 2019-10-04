@@ -1,12 +1,12 @@
 # Translate the concurrent program to the Kripke Structure
-![Build Status](https://travis-ci.com/Callmejp/CodeToKripke.svg?branch=master)
+![Build Status](https://travis-ci.com/Callmejp/CodeToKripke.svg?branch=master) ![](https://img.shields.io/badge/author-蒋洪剑-yellow.svg ![](https://img.shields.io/badge/author-JohnReese-yellow.svg
 ## version 1.0.0
 
 In the first version, we only consider the single program without concurrence. And `If` and `While` won't be nested inside each other.
 
 ### IMP language
 
-1. Aexp: a=n|X|a+a|a-a|a*a, n$\in$[0, 2]
+1. Aexp: a=n|X|a+a|a-a|a*a, n∈[0, 2]
 2. Bexp: b=true|false|a==a|a<=a|not b|b and b|b or b
 3. Com: c=|X=a|a;b|if b then c else c|while b do c
 
@@ -62,7 +62,7 @@ In the second version, we consider two concurrent programs. And `If` will occure
 
 ### IMP language
 
-1. Aexp: a=n|X|a+a|a-a|a*a, n$\in$[0, 2]
+1. Aexp: a=n|X|a+a|a-a|a*a, n∈[0, 2]
 2. Bexp: b=true|false|a==a|a<=a|not b|b and b|b or b
 3. Com: c=|X=a|a;b|if b then c else c|while b do c|wait(b)|skip
 
@@ -130,12 +130,12 @@ Finally, we successfully added the drawing graph function. And we use the [Graph
 
 ### How to use Graphviz in Python ?
 
-```
+
 //Windows for example:
 1. Download MSI [here](https://graphviz.gitlab.io/_pages/Download/Download_windows.html) and install it.
 2. Add its `bin` path to your PC's `Environment Path`.
 3. pip install graphviz. 
-```
+
 
 ### Result
 
