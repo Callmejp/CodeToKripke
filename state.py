@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# @Time    : 2019.9.30
+# @Author  : 傅剑铃
+# @FileName: state.py
+
+
 from enum import Enum, unique
 
 @unique

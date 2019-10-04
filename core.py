@@ -1,9 +1,16 @@
-from config import FileName
-from process import translateToKripke, initializeGlobalVariable
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# @Time    : 2019.10.4
+# @Author  : 蒋洪剑
+# @FileName: core.py
+
+
+import process
 from queue import Queue
 from config import *
 from state import TypeToken
 from graphviz import Digraph
+import argparse
 
 
 """
@@ -44,8 +51,8 @@ def isEqual(n1, n2):
 
 
 def judgeExpression(expression):
-    initializeGlobalVariable()
-    wordList, contentList = translateToKripke(expression, currentCount, 1)
+    process.initializeGlobalVariable()
+    wordList, contentList = process.translateToKripke(expression, currentCount, 1)
     localLength = len(wordList)
     newExpe = ""
     for i in range(localLength):
@@ -68,8 +75,13 @@ def drawKripke():
 
     for i in range(nodeCount):
         t = nodeList[i]
-        label = str(t["a"]) + ", " + str(t["b"]) + ", " + str(t["d"]) + ", " + str(t["pc0"]) + ", " + str(t["pc1"])
-        # label = str(t["d"]) + ", " + str(t["pc0"]) + ", " + str(t["pc1"])
+        
+        label = ""
+        for var in allvariableList:
+            label += str(t[var]) + ", "
+        # print(label)
+        label = label + str(t["pc0"]) + ", " + str(t["pc1"])
+        
         dot.node(name=str(i+1), label=label, color='black')
 
     for i in range(1, nodeCount+1):
@@ -84,24 +96,39 @@ def drawKripke():
 
 
 if __name__ == "__main__":
-    codeList = readCodeFromFile(FileName)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filepath", type=str, help="location of the code-txt you wanna test.")
+    parser.add_argument("nodecount", type=int, help="number of the nodes you wanna generate.")
+    args = parser.parse_args()
+
+    codeList = readCodeFromFile(args.filepath)
+    initialNode = {"pc0": "L1", "pc1": "L1", "node": 1}
     # print(codeList)
     currentCount = 0
     finalResult = []
     for c in codeList:
-        initializeGlobalVariable()
-        _, currentCount = translateToKripke(c, currentCount+1)
+        process.initializeGlobalVariable()
+        initialNode["pc1"] = "L" + str(currentCount + 1)
+        _, currentCount = process.translateToKripke(c, currentCount+1)
         for temp in _:
             if len(temp["type"]) > 2:
                 continue
             finalResult.append(temp)
     
     # print(finalResult)
+    
+    # handle the existed variables
+    allvariableList = list(set(process.varList))
+    
+    allvariableList.sort()
+    for var in allvariableList:
+        initialNode[var] = 0
+    print(initialNode)
 
     # edge lists
-    edge = [[] for i in range(50)]
+    edge = [[] for i in range(args.nodecount+10)]
     nodeCount = 1
-    initialNode = {"a": 0, "b": 0, "d": 0, "pc0": "L1", "pc1": "L9", "node": 1}
+    
     # store all nodes
     nodeList = []
     nodeList.append(initialNode)
@@ -186,10 +213,10 @@ if __name__ == "__main__":
                 nodeList.append(newNode)
                 q.put(newNode)
 
-        if nodeCount >= 20:
+        if nodeCount >= args.nodecount:
             break
-    print(nodeList)
-    print(edge)
+    # print(nodeList)
+    # print(edge)
     drawKripke()
             
             

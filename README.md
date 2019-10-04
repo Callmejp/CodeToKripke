@@ -1,6 +1,15 @@
 # Translate the concurrent program to the Kripke Structure
-![Build Status](https://travis-ci.com/Callmejp/CodeToKripke.svg?branch=master) ![](https://img.shields.io/badge/author-蒋洪剑-yellow.svg) ![](https://img.shields.io/badge/author-傅剑铃-yellow.svg) ![](https://img.shields.io/badge/author-JohnReese-yellow.svg)
-## version 1.0.0
+![](https://img.shields.io/badge/version-v3.1-green.svg) ![Build Status](https://travis-ci.com/Callmejp/CodeToKripke.svg?branch=master) ![](https://img.shields.io/badge/author-蒋洪剑-yellow.svg) ![](https://img.shields.io/badge/author-傅剑铃-yellow.svg) ![](https://img.shields.io/badge/author-JohnReese-yellow.svg)
+
+## Usage
+```
+python core.py testCode/teacher.txt 20
+```
+
+* `testCode/teacher.txt`: location of the code-txt you wanna test.
+* `20`: number of the nodes you wanna generate.
+
+## version 1.0
 
 In the first version, we only consider the single program without concurrence. And `If` and `While` won't be nested inside each other.
 
@@ -8,7 +17,7 @@ In the first version, we only consider the single program without concurrence. A
 
 1. Aexp: a=n|X|a+a|a-a|a*a, n∈[0, 2]
 2. Bexp: b=true|false|a==a|a<=a|not b|b and b|b or b
-3. Com: c=|X=a|a;b|if b then c else c|while b do c
+3. Com: c=|X=a|a;b|if b then c else c endif|while b do c endwhile
 
 ### Specification
 
@@ -56,7 +65,7 @@ pc = L10 ^ pc' = L12 ^ g' = f + e
 pc = L11 ^ pc' = L12 ^ h' = g * 2
 ```
 
-## version 2.0.0
+## version 2.0
 
 In the second version, we consider two concurrent programs. And `If` will occure in `While` segment. 'Wait' and 'Skip' are also added.
 
@@ -64,7 +73,7 @@ In the second version, we consider two concurrent programs. And `If` will occure
 
 1. Aexp: a=n|X|a+a|a-a|a*a, n∈[0, 2]
 2. Bexp: b=true|false|a==a|a<=a|not b|b and b|b or b
-3. Com: c=|X=a|a;b|if b then c else c|while b do c|wait(b)|skip
+3. Com: c=|X=a|a;b|if b then c else c endif|while b do c endwhile|wait(b)|skip
 
 ### Specification
 
@@ -125,7 +134,7 @@ pc = L15 ^ pc' = L16 ^ b' = b - 1
 pc = L16 ^ pc' = L9 ^ d' = 0
 ```
 
-## version 3.0.0
+## version 3.0
 Finally, we successfully added the drawing graph function. And we use the [Graphviz](http://www.graphviz.org/)
 
 ### How to use Graphviz in Python ?
@@ -145,4 +154,8 @@ Finally, we successfully added the drawing graph function. And we use the [Graph
 2. Intricate Example(testCode/concurrent-1.txt): only show the 20 nodes(not fully).
    
    ![img](Images/Intricate.png)
+
+## version 3.1
+We use the `argparse`, now you can assign the code-txt location and the number of generated nodes.
+
 ## Thanks the course in the [极客时间](https://time.geekbang.org/column/intro/100034101)

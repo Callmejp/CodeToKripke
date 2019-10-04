@@ -1,4 +1,11 @@
-FileName = "testCode/concurrent-1.txt"
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# @Time    : 2019.9.30
+# @Author  : 傅剑铃
+# @FileName: config.py
+
+
+# FileName = "testCode/concurrent-1.txt"
 
 frontLabel = "frontLabel"
 backLabel = "backLabel"

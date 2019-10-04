@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# @Time    : 2019.10.4
+# @Author  : JohnReese
+# @FileName: state.py
+
+
 from config import *
 from state import TypeToken, DfaState
 import logging
@@ -27,6 +34,8 @@ whileSegment = {}
 inWhile = False
 # counter of sentences between while & endwhile
 countWhileToEnd = 0
+# record the variables
+varList = []
 
 
 """
@@ -600,6 +609,15 @@ def translateToKripke(codeContent, upToNowCount, flag=0):
 def mergeToDict(upToNowCount):
     global inIf, inWhile, countIfToElse, countWhileToEnd
 
+    '''
+    get all the variables
+    '''
+    for i in range(len(wordList)):
+        if wordList[i] == TypeToken.Identifier:
+            varList.append(contentList[i])
+    #### new add code 2019/10/4 #######
+
+    
     labelStr = 'L'
     # key value
     labelCount = upToNowCount
@@ -714,7 +732,7 @@ def mergeToDict(upToNowCount):
         index += 1
     
     
-    outputKripkeStructure(labelProgram)
+    # outputKripkeStructure(labelProgram)
     return labelProgram, labelCount
     
 
