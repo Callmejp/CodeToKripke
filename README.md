@@ -1,5 +1,5 @@
 # Translate the concurrent program to the Kripke Structure
-![Build Status](https://travis-ci.com/Callmejp/CodeToKripke.svg?branch=master) ![](https://img.shields.io/badge/author-蒋洪剑-yellow.svg ![](https://img.shields.io/badge/author-JohnReese-yellow.svg
+![Build Status](https://travis-ci.com/Callmejp/CodeToKripke.svg?branch=master) ![](https://img.shields.io/badge/author-蒋洪剑-yellow.svg) ![](https://img.shields.io/badge/author-傅剑铃-yellow.svg) ![](https://img.shields.io/badge/author-JohnReese-yellow.svg)
 ## version 1.0.0
 
 In the first version, we only consider the single program without concurrence. And `If` and `While` won't be nested inside each other.
