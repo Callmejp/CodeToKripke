@@ -1,5 +1,5 @@
 # Translate the *concurrent/single* program to the Kripke Structure
-![](https://img.shields.io/badge/version-v3.1-green.svg) ![Build Status](https://travis-ci.com/Callmejp/CodeToKripke.svg?branch=master) ![](https://img.shields.io/badge/author-蒋洪剑-yellow.svg) ![](https://img.shields.io/badge/author-傅剑铃-yellow.svg) ![](https://img.shields.io/badge/author-JohnReese-yellow.svg)
+![](https://img.shields.io/badge/version-v4.0-green.svg) ![Build Status](https://travis-ci.com/Callmejp/CodeToKripke.svg?branch=master) ![](https://img.shields.io/badge/author-蒋洪剑-yellow.svg) ![](https://img.shields.io/badge/author-傅剑铃-yellow.svg) ![](https://img.shields.io/badge/author-JohnReese-yellow.svg)
 
 ## Usage
 ```
