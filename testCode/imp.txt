@@ -1,3 +1,6 @@
+cobegin P0 coend
+
+P0:
 a = 1;
 b = a;
 

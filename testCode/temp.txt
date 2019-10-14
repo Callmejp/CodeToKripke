@@ -104,9 +104,6 @@ def drawKripke():
     @param: 
     @return:  
     """
-    for i in range(nodeCount):
-        edge[i] = list(set(edge[i]))
-
     dot = Digraph(name="MyPicture", comment="the test", format="png")
 
     for i in range(nodeCount):
@@ -116,12 +113,7 @@ def drawKripke():
         for var in allvariableList:
             label += str(t[var]) + ", "
         # print(label)
-        for j in range(pcCount):
-            if j == pcCount - 1:
-                label += str(t["pc" + str(j)])
-                break
-            label += str(t["pc" + str(j)]) + ", "
-        # print(label)
+        label = label + str(t["pc0"]) + ", " + str(t["pc1"])
         
         dot.node(name=str(i+1), label=label, color='black')
 
@@ -130,6 +122,7 @@ def drawKripke():
             dot.edge(str(i), str(j), color='black')
 
     # dot.view(filename="mypicture", directory="D:\MyTest")
+
     dot.render(filename='MyPicture', directory="D:\MyTest",view=True)
 
 
@@ -153,19 +146,21 @@ if __name__ == "__main__":
     for c in codeList:
         process.initializeGlobalVariable()
         initialNode["pc" + str(pcCount)] = "L" + str(currentCount + 1)
-        pcCount += 1
         _, currentCount = process.translateToKripke(c, currentCount + 1)
         for temp in _:
             if len(temp["type"]) > 2:
                 continue
             finalResult.append(temp)
+    # initial the initialNode according to the pcCount
+    print("Line 155", initialNode) 
     
     # handle the existed variables
     allvariableList = list(set(process.varList))
+    
     allvariableList.sort()
     for var in allvariableList:
         initialNode[var] = 0
-    # print(initialNode)
+    print(initialNode)
 
     # edge lists
     edge = [[] for i in range(args.nodecount+10)]
@@ -184,7 +179,7 @@ if __name__ == "__main__":
         for tranCondition in finalResult:
             pcIndex = -1
             for i in range(pcCount):
-                if currentNode["pc" + str(i)] == tranCondition[frontLabel]:
+                if currentCount["pc" + str(i)] == tranCondition[frontLabel]:
                     pcIndex = i
             # if currentNode["pc0"] != tranCondition[frontLabel] and currentNode["pc1"] != tranCondition[frontLabel]:
             #     continue
@@ -195,19 +190,34 @@ if __name__ == "__main__":
             # wait
             if tranCondition["type"] == "6":
                 if judgeExpression(tranCondition[conditionExp]):
-                    newNode["pc"+str(pcIndex)] = tranCondition[backLabel]
+                    if currentNode["pc0"] == tranCondition[frontLabel]:
+                        newNode["pc0"] = tranCondition[backLabel]
+                    else:
+                        newNode["pc1"] = tranCondition[backLabel]
             # if else
             elif tranCondition["type"] == "3":
                 if judgeExpression(tranCondition[conditionExp]):
-                    newNode["pc"+str(pcIndex)] = tranCondition[ifTrueLabel]
+                    if currentNode["pc0"] == tranCondition[frontLabel]:
+                        newNode["pc0"] = tranCondition[ifTrueLabel]
+                    else:
+                        newNode["pc1"] = tranCondition[ifTrueLabel]
                 else:
-                    newNode["pc"+str(pcIndex)] = tranCondition[ifFalseLabel]
+                    if currentNode["pc0"] == tranCondition[frontLabel]:
+                        newNode["pc0"] = tranCondition[ifFalseLabel]
+                    else:
+                        newNode["pc1"] = tranCondition[ifFalseLabel]
             # while
             elif tranCondition["type"] == "4":
                 if judgeExpression(tranCondition[conditionExp]):
-                    newNode["pc"+str(pcIndex)] = tranCondition[whileTrueLabel]
+                    if currentNode["pc0"] == tranCondition[frontLabel]:
+                        newNode["pc0"] = tranCondition[whileTrueLabel]
+                    else:
+                        newNode["pc1"] = tranCondition[whileTrueLabel]
                 else:
-                    newNode["pc"+str(pcIndex)] = tranCondition[whileFalseLabel]
+                    if currentNode["pc0"] == tranCondition[frontLabel]:
+                        newNode["pc0"] = tranCondition[whileFalseLabel]
+                    else:
+                        newNode["pc1"] = tranCondition[whileFalseLabel]
             # simple cases
             else:
                 # b = a / b = 1
@@ -227,9 +237,13 @@ if __name__ == "__main__":
                 elif tranCondition["type"] == "5":
                     pass
                 
-                newNode["pc"+str(pcIndex)] = tranCondition[backLabel]
-                
 
+                if currentNode["pc0"] == tranCondition[frontLabel]:
+                    newNode["pc0"] = tranCondition[backLabel]
+                else:
+                    newNode["pc1"] = tranCondition[backLabel]
+
+            
             flag = 1
             for n in nodeList:
                 if isEqual(n.copy(), newNode.copy()):

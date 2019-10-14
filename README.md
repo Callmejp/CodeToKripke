@@ -1,4 +1,4 @@
-# Translate the concurrent program to the Kripke Structure
+# Translate the *concurrent/single* program to the Kripke Structure
 ![](https://img.shields.io/badge/version-v3.1-green.svg) ![Build Status](https://travis-ci.com/Callmejp/CodeToKripke.svg?branch=master) ![](https://img.shields.io/badge/author-蒋洪剑-yellow.svg) ![](https://img.shields.io/badge/author-傅剑铃-yellow.svg) ![](https://img.shields.io/badge/author-JohnReese-yellow.svg)
 
 ## Usage
@@ -145,5 +145,13 @@ We use the `argparse`, now you can assign the code-txt location and the number o
 
 ## version 3.2
 Add code commenting.
+
+## version 4.0
+Now `CodeToKripKe` can support any number of programs(include single program).
+
+1. Three Concurrent Programs(testCode/concurrent-2.txt): only show the 30 nodes(not fully).
+   
+   ![img](Images/ThreePrograms.png)
+
 
 ## Thanks the course in the [极客时间](https://time.geekbang.org/column/intro/100034101)

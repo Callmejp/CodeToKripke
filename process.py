@@ -781,7 +781,7 @@ def mergeToDict(upToNowCount):
         index += 1
     
     
-    # outputKripkeStructure(labelProgram)
+    outputKripkeStructure(labelProgram)
     return labelProgram, labelCount
     
 
