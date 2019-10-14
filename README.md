@@ -9,19 +9,17 @@ python core.py testCode/teacher.txt 20
 * `testCode/teacher.txt`: location of the code-txt you wanna test.
 * `20`: number of the nodes you wanna generate.
 
-## version 1.0
-
-In the first version, we only consider the single program without concurrence. And `If` and `While` won't be nested inside each other.
-
-### IMP language
+## IMP language
 
 1. Aexp: a=n|X|a+a|a-a|a*a, n∈[0, 2]
 2. Bexp: b=true|false|a==a|a<=a|not b|b and b|b or b
-3. Com: c=|X=a|a;b|if b then c else c endif|while b do c endwhile
+3. Com: c=|X=a|a;b|if b then c else c endif|while b do c endwhile|wait(b)|skip
 
-### Specification
+> Specification: Here `a`, `b` and `c` indicates the variables, expressions and sentences.
 
-Here `a`, `b` and `c` indicates the variables, expressions and sentences.
+## version 1.0
+
+In the first version, we only consider the single program without concurrence. And `If` and `While` won't be nested inside each other.
 
 ### Result
 
@@ -68,16 +66,6 @@ pc = L11 ^ pc' = L12 ^ h' = g * 2
 ## version 2.0
 
 In the second version, we consider two concurrent programs. And `If` will occure in `While` segment. 'Wait' and 'Skip' are also added.
-
-### IMP language
-
-1. Aexp: a=n|X|a+a|a-a|a*a, n∈[0, 2]
-2. Bexp: b=true|false|a==a|a<=a|not b|b and b|b or b
-3. Com: c=|X=a|a;b|if b then c else c endif|while b do c endwhile|wait(b)|skip
-
-### Specification
-
-Here `a`, `b` and `c` indicates the variables, expressions and sentences.
 
 ### Result
 
@@ -137,14 +125,11 @@ pc = L16 ^ pc' = L9 ^ d' = 0
 ## version 3.0
 Finally, we successfully added the drawing graph function. And we use the [Graphviz](http://www.graphviz.org/)
 
-### How to use Graphviz in Python ?
+### How to use Graphviz in Python ?(Windows for example)
 
-
-//Windows for example:
 1. Download MSI [here](https://graphviz.gitlab.io/_pages/Download/Download_windows.html) and install it.
 2. Add its `bin` path to your PC's `Environment Path`.
 3. pip install graphviz. 
-
 
 ### Result
 
@@ -157,5 +142,8 @@ Finally, we successfully added the drawing graph function. And we use the [Graph
 
 ## version 3.1
 We use the `argparse`, now you can assign the code-txt location and the number of generated nodes.
+
+## version 3.2
+Add code commenting.
 
 ## Thanks the course in the [极客时间](https://time.geekbang.org/column/intro/100034101)

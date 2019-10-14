@@ -42,6 +42,12 @@ varList = []
 some functions
 """
 def initializeGlobalVariable():
+    """
+    @name: initializeGlobalVariable
+    @description: initialize the global variables.
+    @param: 
+    @return: 
+    """
     global currentState, wordList, contentList, ifSegment, inIf, countIfToElse, whileSegment, inWhile, countWhileToEnd
 
     currentState = DfaState.Initial
@@ -56,10 +62,18 @@ def initializeGlobalVariable():
 
 
 def getWhilePosition(startPostion, whileCount):
+    """
+    @name: getWhilePosition
+    @description: Count the number of sentences between while and endwhile.
+    @param: 
+        startPosition{int}: the current index for wordList
+        whileCount{int}: the current label index
+    @return: 
+    """
     global whileSegment, inWhile, countWhileToEnd
     whileToEnd = 0
     localLength = len(wordList)
-    whileSegment["startCount"] = whileCount
+    whileSegment[startCount] = whileCount
     
     while startPostion < localLength:
         if wordList[startPostion] == TypeToken.Endwhile:
@@ -74,6 +88,13 @@ def getWhilePosition(startPostion, whileCount):
 
 
 def getIfPosition(startPostion):
+    """
+    @name: getIfPosition
+    @description: Count the number of sentences between if and endif.
+    @param: 
+        startPosition{int}: the current index for wordList
+    @return: 
+    """
     global ifSegment, inIf, countIfToElse
     ifToElse = elseToEnd = 0
     localLength = len(wordList)
@@ -99,6 +120,14 @@ def getIfPosition(startPostion):
 
 
 def handleInitialState(char):
+    """
+    @name: handleInitialState
+    @description: Set the automata to the initial state and accept the current character.
+    @param: 
+        char{str}: current character ready to be accepted.
+    @return: 
+        localState{enum}: the next state after the initial state accept the char.
+    """
     localState = DfaState.Initial
     
     if char.isalpha():
@@ -171,6 +200,17 @@ def handleInitialState(char):
 # The entrance function
 # ----------------------------------------------
 def translateToKripke(codeContent, upToNowCount, flag=0):
+    """
+    @name: translateToKripke
+    @description: the main process of the automata.
+    @param: 
+        codeContent{str}: code segment (str) of each program.
+        upToNowCount{int}: the initial label count of each program.
+        flag{int}: whether return at the end of function
+    @return: 
+        labelProgram{list}: each element is a dict which represent each sentence.
+        upToNowCount{int}: the last label count of each program
+    """
     global currentState
     newCodeContent = codeContent + "^"
     # print(newCodeContent)
@@ -607,6 +647,15 @@ def translateToKripke(codeContent, upToNowCount, flag=0):
 
 
 def mergeToDict(upToNowCount):
+    """
+    @name: mergeToDict
+    @description: The words recognized by the automata are grouped into sentences to form a dict.
+    @param: 
+        upToNowCount{int}: the initial label count of each program.
+    @return: 
+        labelProgram{list}: each element is a dict which represent each sentence.
+        upToNowCount{int}: the last label count of each program
+    """
     global inIf, inWhile, countIfToElse, countWhileToEnd
 
     '''
@@ -688,7 +737,7 @@ def mergeToDict(upToNowCount):
             if inWhile:
                 countWhileToEnd += 1
                 if countWhileToEnd == whileSegment[whileToEndCount]:
-                    segment[backLabel] = labelStr + str(whileSegment["startCount"])
+                    segment[backLabel] = labelStr + str(whileSegment[startCount])
                     inWhile = False
                     countWhileToEnd = 0
         # if & else part
@@ -738,7 +787,13 @@ def mergeToDict(upToNowCount):
 
 
 def outputKripkeStructure(labelProgram):
-    # print(labelProgram)
+    """
+    @name: outputKripkeStructure
+    @description: output the label program. 
+    @param: 
+        labelProgram{list}: each element is a dict which represent each sentence.
+    @return:         
+    """
     print("*********************Label Program***************************")
     for currentPart in labelProgram:
         if currentPart["type"] == "1":   

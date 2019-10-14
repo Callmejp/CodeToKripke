@@ -13,10 +13,15 @@ from graphviz import Digraph
 import argparse
 
 
-"""
-Read the code from the file
-"""
 def readCodeFromFile(filepath):
+    """
+    @name: readCodeFromFile
+    @description: Read the code from the file.
+    @param: 
+        filepath{str}: the file path.
+    @return: 
+        localCodeList{list}: each element is a segment of code.
+    """
     localCodeList = []
     codePart = ""
           
@@ -35,6 +40,14 @@ def readCodeFromFile(filepath):
 
 
 def toString(tempStr):
+    """
+    @name: toString
+    @description: Replace the identifier with its value.
+    @param: 
+        tempStr{str}: the identifier or IntLiteral
+    @return: 
+        {str}: IntLiteral.
+    """
     if tempStr.isalpha():
         return str(currentNode[tempStr])
     else:
@@ -42,6 +55,14 @@ def toString(tempStr):
 
 
 def isEqual(n1, n2):
+    """
+    @name: isEqual
+    @description: Judge if two dicts without "node" key are equal.
+    @param: 
+        n1&n2{dict}: the node dict.
+    @return: 
+        {bool}: 
+    """
     n1.pop("node")
     n2.pop("node")
     if n1 == n2:
@@ -51,6 +72,14 @@ def isEqual(n1, n2):
 
 
 def judgeExpression(expression):
+    """
+    @name: judgeExpression
+    @description: Determine whether the expression is true or false.
+    @param: 
+        expression{str}: the expression string.
+    @return: 
+        {bool}: 
+    """
     process.initializeGlobalVariable()
     wordList, contentList = process.translateToKripke(expression, currentCount, 1)
     localLength = len(wordList)
@@ -69,8 +98,12 @@ def judgeExpression(expression):
 
 
 def drawKripke():
-    
-
+    """
+    @name: drawKripke
+    @description: Draw the graph according to the edge list.
+    @param: 
+    @return:  
+    """
     dot = Digraph(name="MyPicture", comment="the test", format="png")
 
     for i in range(nodeCount):
